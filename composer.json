@@ -1,0 +1,36 @@
+{
+    "name": "devsrv/laravel-session-out",
+    "description": "Notify the user via modal if session expired",
+    "keywords": [
+        "laravel suggest login again",
+        "laravel expired session message"
+    ],
+    "type": "library",
+    "homepage": "https://github.com/devsrv/laravel-session-out",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sourav Rakshit",
+            "email": "developer.srv1@gmail.com",
+            "homepage": "https://devsourav.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.1.3",
+        "illuminate/support": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "devsrv\\sessionout\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "devsrv\\sessionout\\sessionExpiredServiceProvider"
+            ]
+        }
+    }
+}
