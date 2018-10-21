@@ -55,6 +55,22 @@ just include the blade file to all the blade views which are only available to a
 
 ## 🛠  Configuration
 
+#### ✔ The Config File
+
+publishing the vendor will create `config/expiredsession.php` file
+
+```php
+return [
+	// the number of seconds between ajax hits to check auth session
+    'gap_seconds' => 30,
+    
+    // if for any reason you need to attach additional middleware
+    'route' => [
+        'middleware' => ['web'],
+    ],
+```
+
+
 #### ✔ Update the modal design & contents
 
 The modal is created with pure `js` and `css` no framework has been used, so you can easily customize the modal contents by editing the `views/vendor/sessionout/modal.blade.php` & the design by editing `public/vendor/sessionout/css/session-modal.css`
