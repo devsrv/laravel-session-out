@@ -23,6 +23,10 @@ class sessionExpiredServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/assets' => public_path('vendor/sessionout'),
         ], 'public');
+
+        $this->publishes([
+            __DIR__ . '/config/expiredsession.php' => config_path('expiredsession.php'),
+        ]);
     }
 
     /**

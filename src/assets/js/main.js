@@ -23,6 +23,6 @@ function chkAuth(){
 
 (function(){
     // check every minute if not logged out already
-    setInterval(chkAuth, 10000);
+    setInterval(chkAuth, parseInt(window.sessionout.requestGap) * 1000);
 })();
 
