@@ -1,5 +1,11 @@
 # Session expired message for your Laravel application
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/devsrv/laravel-session-out.svg?style=flat-square)](https://packagist.org/packages/devsrv/laravel-session-out)
+[![GitHub license](https://img.shields.io/github/license/devsrv/laravel-session-out.svg?style=flat-square)](https://github.com/devsrv/laravel-session-out/blob/master/LICENSE)
+[![Total Downloads](https://img.shields.io/packagist/dt/devsrv/laravel-session-out.svg?style=flat-square)](https://packagist.org/packages/devsrv/laravel-session-out)
+[![Laravel Support](https://img.shields.io/badge/Laravel-5.*-blue.svg?longCache=true&style=flat-square)](#)
+[![GitHub issues](https://img.shields.io/github/issues/devsrv/laravel-session-out.svg?style=flat-square)](https://github.com/devsrv/laravel-session-out/issues)
+
 
 If for any reason _**( user logged out intentionally / session lifetime expired / session flushed for all logged in devices of the user )**_ the authentication session doesn't exist & still the user is on a page or multiple pages which require the user to be logged in, then showing a message that
 
@@ -50,8 +56,9 @@ just include the blade file to all the blade views which are only available to a
 
 > rather copying this line over & over to the views, extend your base blade view and include it there in the bottom
 
-## 🛠  Configuration
 
+
+## 🛠  Configuration
 #### Lorem
 
 lorem lorem
@@ -81,7 +88,7 @@ php artisan config:clear
 ```
 
 ## 👋🏼 Say Hi! 
-Let me know here TWITTER FACEBOOK if you find this package useful 👍🏼
+Let me know in [Twitter](https://twitter.com/srvrksh) | [Facebook](https://www.facebook.com/srvrksh) if you find this package useful 👍🏼
 
 
 ## 🎀 License
