@@ -35,14 +35,9 @@ composer require devsrv/laravel-session-out
 ];
 ```
 
-You need to publish the `blade` file included in the package by:
+You need to publish the `blade`, `js` and `css` files included in the package using the following artisan command:
 ```bash
 php artisan vendor:publish --provider="devsrv\sessionout\sessionExpiredServiceProvider"
-```
-
-This package contains `js` and `css` which you need to copy to the public folder, using the following artisan command:
-```bash
-php artisan vendor:publish --provider="devsrv\sessionout\sessionExpiredServiceProvider" --tag=public
 ```
 
 
@@ -59,28 +54,36 @@ just include the blade file to all the blade views which are only available to a
 
 
 ## 🛠  Configuration
-#### Lorem
 
-lorem lorem
+#### ✔ Update the modal design & contents
+
+The modal is created with pure `js` and `css` no framework has been used, so you can easily customize the modal contents by editing the `views/vendor/sessionout/modal.blade.php` & the design by editing `public/vendor/sessionout/css/session-modal.css`
+
+#### ✔ Advanced
+
+- 🔘 if you want to customize the `js` file which is responsible for checking auth session & modal display then modify the `public/vendor/sessionout/js/main.js` file but don't forget to compile it with webpack & place the compiled `js` as `public/vendor/sessionout/dist/js/main.js`
+
+- 🔘 **you may want to create a login form** in the modal, first create the html form in the `views/vendor/sessionout/modal.blade.php` then put the ajax code in `public/vendor/sessionout/js/main.js` & don't forget to compile as mentioned above,
+> after ajax success close the modal by calling the `closeSessionOutModal()` function
 
 
-## 🔍 Note
+## 🧐📑 Note
 
-#### When updating the package
+#### ♻ When updating the package
 
 Remember to publish the `assets` and `views` after each update
 
 use `--force` tag after updating the package to publish the updated package `assets` and `views`
 
 ```bash
-php artisan vendor:publish --provider="devsrv\sessionout\sessionExpiredServiceProvider" --tag=public --force
-
 php artisan vendor:publish --provider="devsrv\sessionout\sessionExpiredServiceProvider" --force
+
+php artisan vendor:publish --provider="devsrv\sessionout\sessionExpiredServiceProvider" --tag=public --force
 ```
 
-> when updating the package take backup of the `public/vendor/sessionout` and `views/vendor/sessionout` directories as these files are configurable so if you make any changes then the updated published assets & views will not contain the changes. after publishing the `assets` & `views` you may again modify the files
+> when updating the package take backup of the `public/vendor/sessionout` and `views/vendor/sessionout` directories as the files inside these dir. are configurable so if you modify the files then the updated published assets & views will not contain the changes. after publishing the `assets` & `views` you may again modify the files
 
-#### After you tweak things
+#### 🔧 After you tweak things
 
 Run this artisan command after changing the config file.
 ```
