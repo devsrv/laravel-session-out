@@ -763,22 +763,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 function chkAuth() {
-    if (parseInt(window.sessionout.authStatus) === 1) {
 
-        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("" + window.sessionout.authpingEndpoint, {
-            pinguser: 1
-        }).then(function (response) {
-            if (parseInt(response.data.auth) === 0) {
-                // show modal
-                document.getElementById("modal-devsrv").style.visibility = "visible";
-
-                // no need for further check
-                window.sessionout.authStatus = 0;
-            }
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }
+    __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post("" + window.sessionout.authpingEndpoint, {
+        pinguser: 1
+    }).then(function (response) {
+        if (parseInt(response.data.auth) === 0) {
+            // show modal
+            document.getElementById("modal-devsrv").style.visibility = "visible";
+        } else {
+            // user session available, hide the modal
+            document.getElementById("modal-devsrv").style.visibility = "hidden";
+        }
+    }).catch(function (error) {
+        console.log(error);
+    });
 }
 
 (function () {
@@ -788,7 +786,6 @@ function chkAuth() {
     // listen for laravel echo
     Echo.private("user.sessiotrack." + window.sessionout.userId).listen('.session.active', function (e) {
         // user auth session resumed
-        window.sessionout.authStatus = 1;
         // close the notification modal
         document.getElementById("modal-devsrv").style.visibility = "hidden";
     });

@@ -6,7 +6,6 @@
 
 <script type="text/javascript">
     window.sessionout = window.sessionout || {};
-    sessionout.authStatus = 1;
     sessionout.authpingEndpoint = "{{ route('sessionout.chkauth') }}";
     sessionout.requestGap = {{ config('expiredsession.gap_seconds') }};
     sessionout.userId = {{ auth()->user()->id }};
