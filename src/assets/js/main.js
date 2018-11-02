@@ -24,5 +24,14 @@ function chkAuth(){
 (function(){
     // check every minute if not logged out already
     setInterval(chkAuth, parseInt(window.sessionout.requestGap) * 1000);
+
+    // listen for laravel echo
+    Echo.private(`user.sessiotrack.${ window.sessionout.userId }`)
+        .listen('.session.active', (e) => {
+            // user auth session resumed
+            window.sessionout.authStatus = 1;
+            // close the notification modal
+            document.getElementById("modal-devsrv").style.visibility = "hidden";
+        });
 })();
 
