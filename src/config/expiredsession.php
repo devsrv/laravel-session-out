@@ -13,17 +13,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Routes group config
+    | whether you want to use the benefit of broadcasting
+    | set true / false
     |--------------------------------------------------------------------------
     |
-    | The default group settings for the sessionout package routes.
-    | don't remove the web middleware group as it consists of all important 
-    | middlewares as session, auth etc.
     |
-     */
-
-    'route' => [
-        'middleware' => ['web'],
-    ],
+ */
+    'avail_broadcasting' => true
 
 ];
