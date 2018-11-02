@@ -24,12 +24,14 @@ function chkAuth(){
     // check every minute if not logged out already
     setInterval(chkAuth, parseInt(window.sessionout.requestGap) * 1000);
 
-    // listen for laravel echo
-    Echo.private(`user.sessiotrack.${ window.sessionout.userId }`)
-        .listen('.session.active', (e) => {
-            // user auth session resumed
-            // close the notification modal
-            document.getElementById("modal-devsrv").style.visibility = "hidden";
-        });
+    if (parseInt(window.sessionout.usingBroadcasting) === 1){
+        // listen for laravel echo
+        Echo.private(`user.sessiotrack.${ window.sessionout.userId }`)
+            .listen('.session.active', (e) => {
+                // user auth session resumed
+                // close the notification modal
+                document.getElementById("modal-devsrv").style.visibility = "hidden";
+            });
+    }
 })();
 
