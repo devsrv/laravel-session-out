@@ -8,6 +8,9 @@ use Auth;
 
 class AuthCheckCtrl extends Controller
 {
+    /**
+     * ping the server to check whether user is online
+     */
     public function getStatus(Request $request)
     {
         $request->validate([

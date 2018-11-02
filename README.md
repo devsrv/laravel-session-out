@@ -11,7 +11,7 @@ If for any reason _**( user logged out intentionally / session lifetime expired 
 
 > authentication session no longer available & to continue your current activity _( may be in the middle of posting an unsaved post etc. )_, you are advised to login again
 
-is all about this package.
+and right after user logged in then hiding the message is all about this package.
 
 
 ## 📥  Installation
@@ -35,7 +35,7 @@ composer require devsrv/laravel-session-out
 ];
 ```
 
-You need to publish the `blade`, `js` and `css` files included in the package using the following artisan command:
+You need to publish the `blade`, `js`, `css` and `config` files included in the package using the following artisan command:
 ```bash
 php artisan vendor:publish --provider="devsrv\sessionout\sessionExpiredServiceProvider"
 ```
@@ -64,10 +64,57 @@ return [
 	// the number of seconds between ajax hits to check auth session
     'gap_seconds' => 30,
     
-    // if for any reason you need to attach additional middleware
-    'route' => [
-        'middleware' => ['web'],
-    ],
+    // whether using broadcasting feature to make the modal disappear faster
+    'avail_broadcasting' => false,
+```
+
+#### ✔ If you want to take advantage of broadcasting
+
+> ** if you are using `avail_broadcasting = true` i.e. want to use the Laravel Echo for faster output please follow the below steps
+
+1. setup [broadcasting](https://laravel.com/docs/master/broadcasting) for your app
+and start `usersession` queue worker
+```bash
+php artisan queue:work --queue=default,usersession
+```
+
+2. make sure to put the broadcasting client config `js` file above the `@include` line not below it, in your blade view.
+```php
+<script type="text/javascript" src="{{ asset('js/broadcasting.js') }}"></script>
+//some html between
+@include('vendor.sessionout.notify')
+```
+3. in `App\Providers\BroadcastServiceProvider` file in the `boot` method require the package's channel file, it contains private channel authentication
+```php
+require base_path('vendor/sessionout/src/routes/channels.php');
+```
+4. in all the places from where users are authenticated call `devsrv\sessionout\classes\AuthState::sessionAvailable()` .
+if you are using custom logic to login users then put the line inside your authentication method when login is successful. 
+> if you are using laravel's default authentication system then better choice will be to create a listener of the login event, Example :-
+```php
+// App\Providers\EventServiceProvider
+
+protected $listen = [
+        'Illuminate\Auth\Events\Login' => [
+            'App\Listeners\SuccessfulLogin',
+        ],
+    ];
+```
+```php
+// App\Listeners\SuccessfulLogin
+
+use devsrv\sessionout\classes\AuthState;
+
+/**
+* Handle the event.
+*
+* @param  Login  $event
+* @return void
+*/
+public function handle(Login $user)
+{
+	AuthState::sessionAvailable();
+}
 ```
 
 
@@ -87,9 +134,10 @@ The modal is created with pure `js` and `css` no framework has been used, so you
 
 #### ♻ When updating the package
 
-Remember to publish the `assets` and `views` after each update
+Remember to publish the `assets`, `views` and `config` after each update
 
-use `--force` tag after updating the package to publish the updated package `assets` and `views`
+use `--force` tag after updating the package to publish the **updated latest** package `assets`, `views` and `config` 
+> but remember using _--force_ tag will replace all the publishable files
 
 ```bash
 php artisan vendor:publish --provider="devsrv\sessionout\sessionExpiredServiceProvider" --force
@@ -97,13 +145,14 @@ php artisan vendor:publish --provider="devsrv\sessionout\sessionExpiredServicePr
 php artisan vendor:publish --provider="devsrv\sessionout\sessionExpiredServiceProvider" --tag=public --force
 ```
 
-> when updating the package take backup of the `public/vendor/sessionout` and `views/vendor/sessionout` directories as the files inside these dir. are configurable so if you modify the files then the updated published assets & views will not contain the changes. after publishing the `assets` & `views` you may again modify the files
+> when updating the package take backup of the `config/expiredsession.php` file & `public/vendor/sessionout`, `views/vendor/sessionout` directories as the files inside these dir. are configurable so if you modify the files then the updated published files will not contain the changes, though after publishing the `assets`, `views` and `config` you may again modify the files
 
 #### 🔧 After you tweak things
 
 Run this artisan command after changing the config file.
-```
+```bash
 php artisan config:clear
+php artisan queue:restart // only when using broadcasting
 ```
 
 ## 👋🏼 Say Hi! 
