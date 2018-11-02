@@ -19,6 +19,6 @@ return [
     |
     |
  */
-    'avail_broadcasting' => true
+    'avail_broadcasting' => false
 
 ];
