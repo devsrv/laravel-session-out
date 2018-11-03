@@ -86,7 +86,7 @@ php artisan queue:work --queue=default,usersession
 ```
 3. in `App\Providers\BroadcastServiceProvider` file in the `boot` method require the package's channel file, it contains private channel authentication
 ```php
-require base_path('vendor/sessionout/src/routes/channels.php');
+require base_path('vendor/devsrv/laravel-session-out/src/routes/channels.php');
 ```
 4. in all the places from where users are authenticated call `devsrv\sessionout\classes\AuthState::sessionAvailable()` .
 if you are using custom logic to login users then put the line inside your authentication method when login is successful. 
